@@ -3,11 +3,22 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{asset('styles/main.css')}}">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="container">
+            <header>
+                <p class="logo">Simple CMS</p>
+                <nav>
+                    <a href="{{path('homepage')}}">Home</a>
+                </nav>
+            </header>
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
+        
     </body>
 </html>
