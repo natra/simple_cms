@@ -20,10 +20,10 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "sensio/generator-bundle": "~3.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0",
         "symfony/phpunit-bridge": "~2.7"
     },
     "scripts": {
@@ -55,7 +55,16 @@
         "symfony-web-dir": "web",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "file": "app/config/parameters.yml",
+            "keep-outdated": true,
+            "env-map": {
+                "database_url": "DATABASE_URL",
+                "monolog_action_level": "LOG_LEVEL",
+                "database_name": "SYMFONY__DATABASE_NAME",
+                "database_user": "SYMFONY__DATABASE_USER",
+                "database_host": "SYMFONY__DATABASE_HOST",
+                "database_password": "SYMFONY__DATABASE_PASSWORD"
+            }
         }
     }
 }
