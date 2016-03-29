@@ -3,22 +3,49 @@
 security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
-    providers:
-        in_memory:
-            memory: ~
+    encoders: # algorithm that was used to encode the passwords
+        Symfony\Component\Security\Core\User\User: bcrypt
+        AppBundle\Entity\User: bcrypt
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER] # if A has admins role, A also has users role
+    providers: # way to load users' information in authentication process
+        chain_provider: # allows us to create multiple providers
+            chain:
+                providers: [in_memory, user_db]
+        in_memory: # directly from the security.yml file itself
+            memory:
+                users: 
+                    admin: { password: $2y$13$uwuRZ5DErVIHmZRoj7YXuuPx0mgXTAjN0.Ohctx3BJTeSkMVHcLnm, roles: ROLE_ADMIN }
+        user_db:
+            entity: { class: AppBundle:User, property: username }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+        #dev:
+         #   pattern: ^/(_(profiler|wdt)|css|images|js)/
+          #  security: false
+        # The main job of a firewall is to configure how your users will authenticate. Will they use a login form? HTTP basic authentication? An API token? All of the above?
 
         main:
-            anonymous: ~
+            pattern: /.* # url pattern where we start protecting our app
+
+            logout:
+                path: /logout
+                target: / # location where a user is redirected to after logout
+            security: true # enable security
+            anonymous: true # allows anonymous / non-logged users
             # activate different ways to authenticate
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+            form_login:  
+                login_path: /login 
+                check_path: /login # location where login form is going to submit to
+                default_target_path: / # location where a user is redirected to after login
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: /cms/user, roles: ROLE_ADMIN} # requires ROLE_ADMIN
+        - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+
