@@ -42,7 +42,7 @@ security:
             form_login:  
                 login_path: /login 
                 check_path: /login # location where login form is going to submit to
-                default_target_path: / # location where a user is redirected to after login
+                default_target_path: /cms/page # location where a user is redirected to after login
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
