@@ -47,5 +47,6 @@ security:
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: /cms/user, roles: ROLE_ADMIN} # requires ROLE_ADMIN
+        - { path: /cms/category, roles: ROLE_ADMIN}
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY}
 
