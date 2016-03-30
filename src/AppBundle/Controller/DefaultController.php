@@ -20,4 +20,17 @@ class DefaultController extends Controller
             'pages' => $pages
         ));
     }
+
+    /**
+     * @Route("/page/{id}", name="page_display")
+     */
+
+    public function displayAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('AppBundle:Page')->find($id);
+        return $this->render('default/display.html.twig', array(
+            'page' => $page 
+        ));
+    }
 }
