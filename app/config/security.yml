@@ -15,7 +15,7 @@ security:
         in_memory: # directly from the security.yml file itself
             memory:
                 users: 
-                    admin: { password: $2y$13$uwuRZ5DErVIHmZRoj7YXuuPx0mgXTAjN0.Ohctx3BJTeSkMVHcLnm, roles: ROLE_ADMIN }
+                    admin: { password: $2y$13$32CANOTQ/r.EWaAOAjU4D.N/AOYUgUyDHS2QB1apRU7HdfjNronN2, roles: ROLE_ADMIN }
         user_db:
             entity: { class: AppBundle:User, property: username }
 
